@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="global.css">
+	<script>
+	//Step 1: Choose a random city
+	var cities = ['London',
+				  'Bangkok',
+				  'Paris',
+				  'Singapore',
+				  'Dubai',
+				  'New York',
+				  'Istanbul',
+				  'Hong Kong',
+				  'Seoul',
+				  'Barcelona',
+				  'Amsterdam',
+				  'Rome',
+				  'Tokyo',
+				  'Austin'];
+	var city = cities[Math.floor(Math.random()*cities.length)]
+	</script>
+</head>
+<body>
+<div class="container">
+	<div class="center-box">
+	  	<h1>WEATHER IN <span id="city"></span></h1>
+	  	<br>
+	  	<p id="weather" class="weather-info"></p>
+	  	<p id="temp" class="weather-info"></p>
+	  	<p id="hashtag"></p>
+  	</div>
+  	<iframe id="weather-gif" src="" frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+</div>
+</body>
+<script>
+	document.getElementById('city').innerHTML = city.toUpperCase();
+
+	//Step 2: Get the weather for said city
+	var APIkey = "d594f9edbc2d1f2d90aedaa4cffa9f01";
+	var url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&units=imperial&APPID="+APIkey;
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", url, false);
+	xhr.send();
+	var response = JSON.parse(xhr.responseText);
+
+	//update the html with the response
+	var weather = response.weather[0].main;
+	var description = response.weather[0].description;
+	var temperature = Math.round(response.main.temp);
+	document.getElementById("hashtag").innerHTML = "#" + weather.toLowerCase();
+	document.getElementById("weather").innerHTML = description.toUpperCase();
+	document.getElementById("temp").innerHTML = temperature + "&#176;";
+
+
+	//Step 3: Get a random gif from Giphy based on the weather
+	var xhr2 = new XMLHttpRequest();
+	xhr2.open("GET", "http://api.giphy.com/v1/gifs/search?q="+weather+"&limit=100&api_key=dc6zaTOxFJmzC", false);
+	xhr2.send();
+	var response2 = JSON.parse(xhr2.responseText);
+
+	//display a random gif out of the 100 results
+	var tmp = Math.floor(Math.random() * 100);
+	document.getElementById("weather-gif").src = response2.data[tmp].embed_url;
+
+</script>
+</html>
