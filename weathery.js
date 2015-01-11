@@ -39,13 +39,23 @@ function adjustWidth(obj) {
 //Called on keyup event in input field. Adjusts input field width. Sends AJAX requests. Only sends request after finished typing for 400ms 
 //Doesn't send AJAX requests on keypresses that aren't characters (eg alt, shift, capslock) except enter
 function keyUp(obj, event){
-	if (prev == document.getElementById('city').value && event.keyCode != 13) return;
-	prev = document.getElementById('city').value;
-	window.clearTimeout(keyPressTimeout);
-	adjustWidth(obj);
-	keyPressTimeout = window.setTimeout(function(){
-		weatherRequestAjax(obj.value);
-	}, 400);
+	//if user presses enter and city value hasn't changed, update the gif
+	if (prev == document.getElementById('city').value && event.keyCode == 13){
+		var hashtag = document.getElementById('hashtag').textContent.substring(1);
+		var response = gifRequest(hashtag);
+		displayGif(response);
+	//if keyinput is detected but city value hasn't changed, do nothing
+	} else if (prev == document.getElementById('city').value){
+		return;
+	//else, city value has changed, so submit ajax request after 400ms
+	} else {
+		prev = document.getElementById('city').value;
+		window.clearTimeout(keyPressTimeout);
+		adjustWidth(obj);
+		keyPressTimeout = window.setTimeout(function(){
+			weatherRequestAjax(obj.value);
+		}, 400);
+	}
 }
 
 //weatherRequest()
