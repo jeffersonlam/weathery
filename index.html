@@ -9,126 +9,21 @@ http://www.jeffersonlam.com/
 <head>
 	<title>Weathery</title>
 	<link rel="stylesheet" type="text/css" href="global.css">
+	<script src="weathery.js"></script>
 </head>
 <body>
 <div class="container">
 	<div class="center-box">
 	  	<h1 class="weather-header">WEATHER IN&nbsp;</h1><input class="weather-header" type="text" id="city" onkeyup="keyUp(this, event);"></input>
-	  	<br>
-	  	<p id="description" class="weather-info"></p>
-	  	<p id="temperature" class="weather-info"></p>
-	  	<div class="corner">
-		  	<p id="hashtag"></p>
-		  	<img src="giphy.gif"><br>
-		  	<a href="http://www.jeffersonlam.com" target="_blank">jeffersonlam.com</a>
-		</div>
+	  	<p id="description"></p>
+	  	<p id="temperature"></p>
   	</div>
+  	<div class="corner">
+	  	<p id="hashtag" class="hashtag"></p>
+	  	<img src="giphy.gif"><br>
+	  	<a href="http://www.jeffersonlam.com" target="_blank">jeffersonlam.com</a>
+	</div>
   	<iframe id="weather-gif" src="" frameBorder="0"></iframe>
 </div>
 </body>
-<script>
-	var xhr;
-	var weatherAPIkey = "d594f9edbc2d1f2d90aedaa4cffa9f01";
-	var giphyAPIkey = "TlK63EM2NT69sTlZCus";
-	var cities = ['London', 'Bangkok', 'Paris', 'Singapore', 'Dubai', 'New York', 'Istanbul', 
-				  'Hong Kong', 'Seoul', 'Barcelona', 'Amsterdam', 'Rome', 'Tokyo', 'Austin Tx'];
-	var keyPressTimeout;
-	var prev;
-
-	window.onload = function(){
-		var city = cities[Math.floor(Math.random()*cities.length)]
-		document.getElementById('city').value = city;
-		prev = city;
-		adjustWidth(document.getElementById('city'));
-		initialAPICalls(city);
-	}
-
-	function adjustWidth(obj) {
-	    obj.style.width = (obj.value.length) * 27 + "px";
-	}
-
-	function keyUp(obj, event){
-		if (prev == document.getElementById('city').value && event.keyCode != 13) return;
-		prev = document.getElementById('city').value;
-		window.clearTimeout(keyPressTimeout);
-		adjustWidth(obj);
-		keyPressTimeout = window.setTimeout(function(){
-			weatherRequestAjax(obj.value);
-		}, 400);
-	}
-
-	function initialAPICalls(city){
-		var response = weatherRequest(city);
-		setWeather(response);
-		//response.weather[0].main contains a one word description of the weather
-		var response2 = gifRequest(response.weather[0].main);
-		setGif(response2);
-	}
-
-	function weatherRequest(city){
-		var tmp = new XMLHttpRequest();
-		var url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&units=imperial&APPID="+weatherAPIkey;
-		tmp.open("GET", url, false);
-		tmp.send();
-		var response = JSON.parse(tmp.responseText);
-		return response;
-	}
-
-	function weatherRequestAjax(city){
-		xhr = new XMLHttpRequest();
-		var url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&units=imperial&APPID="+weatherAPIkey;
-		xhr.open("GET", url, true);
-		xhr.onreadystatechange = callback;
-		xhr.send();
-	}
-
-	function callback() {
-	  	if (xhr.readyState === 4) {
-	    	if (xhr.status === 200) {
-	    		var response = JSON.parse(xhr.responseText);
-	    		if (response.cod == 404){
-	    			console.error(response.message);
-	    			return;
-	    		} 
-	      		setWeather(response);
-	      		var response2 = gifRequest(response.weather[0].main);
-	      		setGif(response2);
-	    	} else {
-	      		console.error(xhr.statusText);
-	    	}
-	  	}
-		xhr.onerror = function (e) {
-		  console.error(xhr.statusText);
-		};
-	}
-
-	function setWeather(response){
-		var hashtag = response.weather[0].main;
-		document.getElementById("hashtag").innerHTML = "#" + hashtag;
-
-		var description = response.weather[0].description;
-		document.getElementById("description").innerHTML = description;
-
-		var temperature = Math.round(response.main.temp);
-		document.getElementById("temperature").innerHTML = temperature + "&#176;";
-	}
-
-	function gifRequest(hashtag){
-		var tmp = new XMLHttpRequest();
-		tmp.open("GET", "http://api.giphy.com/v1/gifs/search?q="+hashtag+"&limit=100&api_key="+giphyAPIkey, false);
-		tmp.send();
-		var response = JSON.parse(tmp.responseText);
-		return response;
-	}
-
-	function setGif(response){
-		var num = Math.floor(Math.random() * response.data.length);
-		document.getElementById("weather-gif").src = response.data[num].embed_url;
-
-		// Preferred way of setting gif: get direct link to gif and set it as a background, rather than use iframe
-		// But, Giphy gives 404 errors half the time when you link directly to a gif
-		// var gifURL = "http://i.giphy.com/"+response.data[num].id+".gif";
-		// document.body.style.backgroundImage = "url('"+gifURL+"')";
-	}
-</script>
 </html>

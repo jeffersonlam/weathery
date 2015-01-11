@@ -1,13 +1,7 @@
 *{
 	font-family: "futura";
-	color: white;
-	text-shadow: 1px 1px 3px gray;
 	font-weight: 100;
-}
-
-html{
-	/*height: 100%;*/
-	/*width: 100%;*/
+	text-shadow: 1px 1px 3px gray;
 }
 
 body{
@@ -15,41 +9,34 @@ body{
 	padding: 0;
 	height: 100%;
 	width: 100%;
-	background: #83B0CC no-repeat center center fixed;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-}
-
-.container{
-	width: 100%;
+	background: #83B0CC;
 }
 
 .center-box{
     position: absolute;
     top: 25%;
-    margin-left: auto;
-	margin-right: auto;
 	left: 0;
 	right: 0;
     text-align: center;
     z-index: 1;
+    text-transform: uppercase;
+	color: white;
 }
 
-h1{
+.center-box h1{
 	display: inline-block;
-	font-family: "futura";
+	font-size: 24pt;
 }
-p{
-	font-family: "futura";
+
+.center-box p{
+	font-size: 16pt;
 }
 
 input[type="text"]{
-	border: none;
+	color: white;
 	font-size: 24pt;
-	width: 200px;
 	text-transform: uppercase;
+	border: none;
 	border-bottom: 1px solid white;
 	text-align: center;
 	background: none;
@@ -57,41 +44,27 @@ input[type="text"]{
 	border-radius: 0px;
 	transition: width 0.1s linear;
 }
+
 input[type="text"]:focus{
 	outline: none;
-	background: none;
 }
 
-.weather-header{
-	font-size: 24pt;
-	text-transform: uppercase;
-}
-
-.weather-info{
-	font-size: 16pt;
-	text-transform: uppercase;
-}
-
-#weather-gif{
+iframe{
 	position: absolute;
 	top: 0;
 	left: 0;
 	bottom: 0;
 	right: 0;
-}
-
-#hashtag{
-	font-size: 10pt;
-	font-weight: 100;
-	color: #bbb;
-	margin: 0;
-	text-transform: lowercase;
-}
-
-iframe{
 	width: 100%;
 	height: 100%;
 	z-index: 0;
+}
+
+.hashtag{
+	font-size: 10pt;
+	color: #bbb;
+	margin: 0;
+	text-transform: lowercase;
 }
 
 .corner{
@@ -101,15 +74,18 @@ iframe{
 	bottom: -33px;
 	transition: bottom 0.2s;
 	height: 77px;
+	z-index: 1;
 }
+
 .corner:hover{
-	bottom: 0px;
+	bottom: -5px;
 }
 
 a{
-	cursor: pointer;
-	font-size: 10pt;
-	text-decoration: none;
-	font-weight: 100;
 	margin-bottom: 7px;
+	cursor: pointer;
+	text-decoration: none;
+	font-size: 10pt;
+	color: white;
+	text-shadow: none;
 }
