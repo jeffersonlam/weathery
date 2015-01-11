@@ -1,19 +1,25 @@
+*{
+	font-family: "futura";
+	color: white;
+	text-shadow: 1px 1px 3px gray;
+	font-weight: 100;
+}
+
 html{
-	height: 100%;
-	width: 100%;
+	/*height: 100%;*/
+	/*width: 100%;*/
 }
 
 body{
 	margin: 0;
-}
-
-*{
-	font-family: "futura";
-	color: white;
-}
-
-p, h1{
-	/*text-shadow: 2px 2px black;*/
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	background: #83B0CC no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 .container{
@@ -31,9 +37,39 @@ p, h1{
     z-index: 1;
 }
 
+h1{
+	display: inline-block;
+	font-family: "futura";
+}
+p{
+	font-family: "futura";
+}
+
+input[type="text"]{
+	border: none;
+	font-size: 24pt;
+	width: 200px;
+	text-transform: uppercase;
+	border-bottom: 1px solid white;
+	text-align: center;
+	background: none;
+	min-width: 80px;
+	border-radius: 0px;
+	transition: width 0.1s linear;
+}
+input[type="text"]:focus{
+	outline: none;
+	background: none;
+}
+
+.weather-header{
+	font-size: 24pt;
+	text-transform: uppercase;
+}
+
 .weather-info{
-	font-weight: bold;
-	font-size: 14pt;
+	font-size: 16pt;
+	text-transform: uppercase;
 }
 
 #weather-gif{
@@ -44,17 +80,36 @@ p, h1{
 	right: 0;
 }
 
+#hashtag{
+	font-size: 10pt;
+	font-weight: 100;
+	color: #bbb;
+	margin: 0;
+	text-transform: lowercase;
+}
+
 iframe{
 	width: 100%;
 	height: 100%;
 	z-index: 0;
 }
 
-#hashtag{
+.corner{
+	text-align: right;
 	position: fixed;
-	right: 20px;
-	bottom: 0;
+	right: 0;
+	bottom: -33px;
+	transition: bottom 0.2s;
+	height: 77px;
+}
+.corner:hover{
+	bottom: 0px;
+}
+
+a{
+	cursor: pointer;
 	font-size: 10pt;
+	text-decoration: none;
 	font-weight: 100;
-	color: #bbb;
+	margin-bottom: 7px;
 }
