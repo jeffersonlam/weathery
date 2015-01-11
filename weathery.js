@@ -126,7 +126,7 @@ function displayGif(response){
 	document.getElementById("weather-gif").src = gif.embed_url;
 
 	// Preferred way of setting gif: get direct link to gif and set it as a background, rather than use iframe
-	// But, Giphy gives 404 errors half the time when you link directly to a gif
+	// Unfortunately, Giphy gives 404 errors half the time when you link directly to a gif
 	// var gifURL = "http://i.giphy.com/"+response.data[num].id+".gif";
 	// document.body.style.backgroundImage = "url('"+gifURL+"')";
 }
