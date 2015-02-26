@@ -72,14 +72,8 @@ iframe{
 	text-align: right;
 	position: fixed;
 	right: 0;
-	bottom: -33px;
-	transition: bottom 0.2s;
-	height: 77px;
+	bottom: 0px;
 	z-index: 1;
-}
-
-.corner:hover{
-	bottom: -5px;
 }
 
 a{
