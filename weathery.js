@@ -5,6 +5,7 @@ var weatherAPIkey = "d594f9edbc2d1f2d90aedaa4cffa9f01";
 var giphyAPIkey = "TlK63EM2NT69sTlZCus";
 var cities = ['London', 'Bangkok', 'Paris', 'Singapore', 'Dubai', 'New York', 'Istanbul', 'Hong Kong', 'Seoul', 'Barcelona', 'Amsterdam', 'Rome', 'Tokyo', 'Austin Tx', 'San Francisco'];
 var keyPressTimeout;
+var timeoutDuration = 800;
 var prev;
 
 //Handles page on page load. Set initial random city with weather and gif
@@ -21,14 +22,16 @@ function adjustWidth(obj) {
     obj.style.width = (obj.value.length) * 27 + "px";
 }
 
-//Called on keyup event in input field. Adjusts input field width. Sends AJAX requests. Only sends request after finished typing for 800ms 
+//Called on keyup event in input field. Adjusts input field width. Sends AJAX requests. Only sends request after finished typing for timeoutDuration
 //Doesn't send AJAX requests on keypresses that aren't characters (eg alt, shift, capslock) except enter
 function keyUp(obj, event){
 	//if user presses 'enter' and city value hasn't changed, update the gif
 	if (prev == document.getElementById('city').value && event.keyCode == 13){
 		var hashtag = document.getElementById('hashtag').textContent.substring(1);
-		// var response = gifRequest(hashtag);
-		// displayGif(response);
+		window.clearTimeout(keyPressTimeout);
+		keyPressTimeout = window.setTimeout(function(){
+			weatherRequestAjax(obj.value);
+		}, timeoutDuration);
 	//if keyinput is detected but city value hasn't changed, do nothing
 	} else if (prev == document.getElementById('city').value){
 		return;
@@ -39,7 +42,7 @@ function keyUp(obj, event){
 		adjustWidth(obj);
 		keyPressTimeout = window.setTimeout(function(){
 			weatherRequestAjax(obj.value);
-		}, 800);
+		}, timeoutDuration);
 	}
 }
 
