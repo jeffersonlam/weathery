@@ -37,6 +37,7 @@ function keyUp(obj, event){
 		return;
 	//else, city value has changed, so submit ajax request after 400ms
 	} else {
+		if (document.getElementById('city').value == "") return;
 		prev = document.getElementById('city').value;
 		window.clearTimeout(keyPressTimeout);
 		adjustWidth(obj);
