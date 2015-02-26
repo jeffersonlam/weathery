@@ -1,7 +1,7 @@
 # Weathery
 By Jefferson Lam
 
-Last Updated: 1-11-15
+Last Updated: 2-25-15
 
 Powered by OpenWeatherMap API and Giphy API
 
